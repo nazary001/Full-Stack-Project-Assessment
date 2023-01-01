@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button} from 'react-bootstrap';
 
 function DeleteButton() {
   return (
-    <button class="p-2 mb-1 bg-danger text-white delete-button">Delete</button>
+    <Button type="button" className="btn btn-danger">Delete</Button>
   );
 }
 
-export default DeleteButton
+export default DeleteButton;

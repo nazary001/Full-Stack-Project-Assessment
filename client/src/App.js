@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Video from "./Video";
 import dataVideos from "./exampleresponse.json";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

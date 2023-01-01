@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital@1&display=swap');
+
 .App {
   text-align: center;
 }
 
 header {
   display: block;
+  font-family: 'Rubik Bubbles', cursive;
 }
 
 .App-header{
@@ -37,18 +41,6 @@ body{
 button{
   background-color: white;
   border: none;
-}
-
-.delete-button{
-  margin-top: 2rem;
-  border-radius: 10px;
-}
-
-.vote-container{
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content:center;
-  margin: 0 0 1rem 0;
 }
 .vote-container > p{
   padding: 0;
