@@ -1,8 +1,8 @@
 import React from 'react'
 
-function DislikeIcon() {
+function DislikeIcon({vote}) {
   return (
-    <button>
+    <button onClick={vote}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"

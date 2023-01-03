@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DeleteButton from './buttons/DeleteButton';
 import LikeIcon from './buttons/LikeIcon';
 import DislikeIcon from './buttons/DislikeIcon';
@@ -7,6 +7,12 @@ import './Video.css';
 import "bootstrap/dist/css/bootstrap.css";
 
 function Video({video}) {
+
+  const [votes, setVotes] = useState(0);
+
+  const addVote = () => {
+    setVotes(votes + 1);
+  }
   
   return (
     <div className="video-container">
@@ -14,9 +20,9 @@ function Video({video}) {
       <YouTubeEmbed video={video} />
       <div className='video-footer'>
         <div className='vote-container'>
-          <LikeIcon />
-          <p>0 Vote</p>
-          <DislikeIcon />
+          <LikeIcon vote={addVote}/>
+          <p>{votes} Votes</p>
+          <DislikeIcon vote={addVote}/>
         </div>
       <DeleteButton />
       </div>
