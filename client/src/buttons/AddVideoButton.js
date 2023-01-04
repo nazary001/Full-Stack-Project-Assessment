@@ -18,8 +18,7 @@ function AddVideoButton({onFormSubmit}) {
         setVideoData(prevState => ({...prevState, [name]: value.slice(0, 43)}));
     }
     
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = () => {
         onFormSubmit(videoData);
         closeModal();
     }

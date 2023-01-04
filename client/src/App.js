@@ -15,6 +15,10 @@ function App() {
     setVideos(prevState => [...prevState, newVideo]);
   }
 
+  const deleteVideo = (id) => {
+    setVideos(prevState => prevState.filter(video => video.id !== id));
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -23,7 +27,7 @@ function App() {
       <AddVideoButton onFormSubmit={addVideo}/>
       <body>
         {videos.map((video, key) => (
-          <Video video={video} key={key}/>
+          <Video video={video} key={key} deleteVideo={deleteVideo}/>
         ))}
       </body>
     </div>

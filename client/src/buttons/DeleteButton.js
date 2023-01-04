@@ -2,9 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from 'react-bootstrap';
 
-function DeleteButton() {
+function DeleteButton({deleteVideo}) {
   return (
-    <Button type="button" className="btn btn-danger">Delete</Button>
+    <Button type="button" className="btn btn-danger" onClick={deleteVideo}>Delete</Button>
   );
 }
 
