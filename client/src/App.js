@@ -24,11 +24,11 @@ function App() {
         <h1>Video Recommendation</h1>
       </header>
       <AddVideoButton onFormSubmit={addVideo}/>
-      <body>
+      <div className="main">
         {videos.map((video, key) => (
           <Video video={video} key={key} deleteVideo={deleteVideo}/>
         ))}
-      </body>
+      </div>
     </div>
   );
 }
