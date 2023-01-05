@@ -5,7 +5,8 @@ function YouTubeEmbed({video}) {
  console.log(url);
   return (
     <iframe
-      height={"300"}
+      height={"185"}
+      width={"330"}
       src={url}
       alt={`video ${video.title}`}
       allow="accelerometer; autoplay; clipboard-write; encrypted-media;"

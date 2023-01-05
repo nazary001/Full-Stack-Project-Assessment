@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import "./App.css";
 import Video from "./Video";
 import dataVideos from "./exampleresponse.json";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import AddVideoButton from "./buttons/AddVideoButton";
 import { v4 as uuidv4 } from 'uuid';
 

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Modal, Button, CloseButton} from 'react-bootstrap';
+import {Modal, CloseButton} from 'react-bootstrap';
 import './AddVideoButton.css';
 
 function AddVideoButton({onFormSubmit}) {
@@ -25,7 +25,13 @@ function AddVideoButton({onFormSubmit}) {
 
     return (
         <>
-            <Button type="button" className="btn btn-success" onClick={openModal}>Add Video</Button>
+            <button type="button" className="add_button" onClick={openModal}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Add Video
+                </button>
             <Modal show = {showModal}>
                 <Modal.Header>
                     <Modal.Title>Put Title and URL</Modal.Title>
@@ -38,7 +44,13 @@ function AddVideoButton({onFormSubmit}) {
                     <input name='url' style={{width: '100%', padding: '0.5rem'}} onChange={handleChange}/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className='btn btn-success' onClick={handleSubmit}>Add Video</Button>
+                    <button className='add_submit_btn' onClick={handleSubmit}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Add Video
+                        </button>
                 </Modal.Footer>
             </Modal>
         </>

@@ -1,10 +1,17 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button} from 'react-bootstrap';
+import './DeleteButton.css';
 
 function DeleteButton({deleteVideo}) {
   return (
-    <Button type="button" className="btn btn-danger" onClick={deleteVideo}>Delete</Button>
+  <div>
+    <button href="#"  onClick={deleteVideo} className='delete_button'>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    Delete
+  </button>
+  </div>
   );
 }
 

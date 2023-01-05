@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DeleteButton from './buttons/DeleteButton';
 import LikeIcon from './buttons/LikeIcon';
 import DislikeIcon from './buttons/DislikeIcon';
 import YouTubeEmbed from './YouTubeEmbed';
 import './Video.css';
-import "bootstrap/dist/css/bootstrap.css";
 
 function Video({video, deleteVideo}) {
 
-  const [likes, setLikes] = useState(0);
-  const [disLikes, setDisLikes] = useState(0);
-  const [votes, setVotes] = useState(0);
+  const [likes, setLikes] = useState(Math.round(Math.random() * 10000));
+  const [disLikes, setDisLikes] = useState(Math.round(Math.random() * 1000));
 
   const addLike = () => {
     setLikes(likes + 1);
@@ -19,10 +17,6 @@ function Video({video, deleteVideo}) {
   const addDisLike = () => {
     setDisLikes(disLikes + 1);
   }
-
-  useEffect(() => {
-    setVotes(likes + disLikes);
-  }, [likes, disLikes]);
   
   return (
     <div className="video-container">
@@ -31,9 +25,10 @@ function Video({video, deleteVideo}) {
       <div className='video-footer'>
         <div className='vote-container'>
           <p>{likes}</p>  
-          <LikeIcon vote={addLike}/>
-          <p>{votes} votes</p>
-          <DislikeIcon vote={addDisLike}/>
+          <div className='vote_buttons'>
+            <LikeIcon vote={addLike}/>
+            <DislikeIcon vote={addDisLike}/>
+          </div>
           <p>{disLikes}</p>
         </div>
       <DeleteButton deleteVideo={() => {deleteVideo(video.id)}}/>
