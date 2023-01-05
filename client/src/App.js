@@ -9,13 +9,23 @@ function App() {
 
   const [videos, setVideos] = useState(dataVideos);
 
+  const addRating = () => {
+    return Math.round(Math.random() * 1000);
+  }
+
   const addVideo = (data) => {
-    const newVideo = { ...data, id: uuidv4() };
+    const newVideo = { ...data, id: uuidv4(), rating: addRating()};
     setVideos(prevState => [...prevState, newVideo]);
+    console.log(videos);
   }
 
   const deleteVideo = (id) => {
     setVideos(prevState => prevState.filter(video => video.id !== id));
+  }
+
+  function sortByRating(){
+    const sortedVideos = [...videos].sort((a, b) => b.rating - a.rating);
+    return sortedVideos;
   }
 
   return (
@@ -25,7 +35,7 @@ function App() {
       </header>
       <AddVideoButton onFormSubmit={addVideo}/>
       <div className="main">
-        {videos.map((video, key) => (
+        {sortByRating().map((video, key) => (
           <Video video={video} key={key} deleteVideo={deleteVideo}/>
         ))}
       </div>

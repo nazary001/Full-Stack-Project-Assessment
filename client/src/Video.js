@@ -7,15 +7,14 @@ import './Video.css';
 
 function Video({video, deleteVideo}) {
 
-  const [likes, setLikes] = useState(Math.round(Math.random() * 10000));
-  const [disLikes, setDisLikes] = useState(Math.round(Math.random() * 1000));
-
+  const [votes, setVotes] = useState(video.rating);
+  
   const addLike = () => {
-    setLikes(likes + 1);
+    setVotes(votes + 1);
   }
 
   const addDisLike = () => {
-    setDisLikes(disLikes + 1);
+    setVotes(votes - 1);
   }
   
   return (
@@ -23,13 +22,12 @@ function Video({video, deleteVideo}) {
       <p className='video-title'>{video.title}</p>
       <YouTubeEmbed video={video} />
       <div className='video-footer'>
-        <div className='vote-container'>
-          <p>{likes}</p>  
+        <div className='vote-container'>  
           <div className='vote_buttons'>
             <LikeIcon vote={addLike}/>
+            <p>{votes} votes</p>
             <DislikeIcon vote={addDisLike}/>
           </div>
-          <p>{disLikes}</p>
         </div>
       <DeleteButton deleteVideo={() => {deleteVideo(video.id)}}/>
       </div>
