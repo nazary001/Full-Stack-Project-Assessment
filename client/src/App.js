@@ -16,7 +16,6 @@ function App() {
   const addVideo = (data) => {
     const newVideo = { ...data, id: uuidv4(), rating: addRating()};
     setVideos(prevState => [...prevState, newVideo]);
-    console.log(videos);
   }
 
   const deleteVideo = (id) => {

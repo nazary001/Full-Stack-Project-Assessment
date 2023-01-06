@@ -1,17 +1,9 @@
 import React from 'react';
-import './DeleteButton.css';
+import Button from '@mui/material/Button';
 
 function DeleteButton({deleteVideo}) {
   return (
-  <div>
-    <button href="#"  onClick={deleteVideo} className='delete_button'>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    Delete
-  </button>
-  </div>
+    <Button variant="outlined" color="error" onClick={deleteVideo}>Delete</Button>
   );
 }
 
