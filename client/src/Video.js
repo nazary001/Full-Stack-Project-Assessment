@@ -31,6 +31,8 @@ function Video({video, deleteVideo}) {
         </div>
       <DeleteButton deleteVideo={() => {deleteVideo(video.id)}}/>
       </div>
+      {video.date &&
+      <p>Added {video.date}</p>}
     </div>
   );
 }
