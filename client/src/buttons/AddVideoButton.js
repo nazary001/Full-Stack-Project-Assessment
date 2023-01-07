@@ -19,7 +19,6 @@ function AddVideoButton({onFormSubmit}) {
     const handleChange = (event) => {
         const {name, value} = event.target;
         setVideoData(prevState => ({...prevState, [name]: value.slice(0, 43)}));
-        console.log(videoData)
     }
     
     const handleSubmit = () => {
