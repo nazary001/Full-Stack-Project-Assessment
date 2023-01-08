@@ -1,13 +1,18 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import Video from "./Video";
-import dataVideos from "./exampleresponse.json";
 import AddVideoButton from "./buttons/AddVideoButton";
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
 
-  const [videos, setVideos] = useState(dataVideos);
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/')
+    .then(res => res.json())
+    .then(data => setVideos(data))
+  }, []);
 
   const addRating = () => {
     return Math.round(Math.random() * 1000);
@@ -35,7 +40,7 @@ function App() {
       <AddVideoButton onFormSubmit={addVideo}/>
       <div className="main">
         {sortByRating().map((video, key) => (
-          <Video video={video} key={key} deleteVideo={deleteVideo}/>
+          <Video video={video} key={video.id} deleteVideo={deleteVideo}/>
         ))}
       </div>
     </div>

@@ -1,8 +1,10 @@
 const videosInitialData = require('./data/exampleresponse.json');
 const { v4: uuidv4 } = require('uuid');
+const cors = require('cors');
 
 const express = require('express');
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -10,7 +12,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 const videos = [...videosInitialData];
 
 app.get('/', (req, res) => {
-  res.send(videos);
+  res.status(200).send(videos);   
 });
 
 app.post('/', (req, res) => {
@@ -18,7 +20,7 @@ app.post('/', (req, res) => {
   Object.assign(video, {
     id: uuidv4()
   });
-  res.status(200).send(video)
+  res.status(200).json(video)
 });
 
 app.get('/:id', (req, res) => {
