@@ -12,7 +12,14 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 const videos = [...videosInitialData];
 
 app.get('/', (req, res) => {
-  res.status(200).send(videos);   
+  if(req.query.order === 'asc'){
+    videos.sort((a, b) => a.rating - b.rating);
+    res.status(200).send(videos);
+  }
+  else{
+    videos.sort((a, b) => b.rating - a.rating);
+    res.status(200).send(videos);
+  }   
 });
 
 app.post('/', (req, res) => {
@@ -37,3 +44,13 @@ app.delete('/:id', (req, res) => {
   videos.splice(videoIdx, 1);
   res.status(200).send(videos);
 });
+
+app.get('/', (req, res) => {
+  console.log(req.query)
+  res.status(200)
+})
+
+app.get('/?order=desc', (req, res) => {
+  const sortedVideos = videos.sort((a, b) => b.rating - a.rating)
+  res.status(200).send(sortedVideos);
+})
