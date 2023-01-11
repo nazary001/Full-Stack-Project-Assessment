@@ -1,11 +1,32 @@
 .add_video_btn{
     margin-top: 1rem !important;
     margin-bottom: 1rem !important;
-    width: 80vw;
+    width: 50vw;
 }
 
 .inputs_group{
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.sort_and_addbtn_div{
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.sort_selector{
+    margin-top: 1rem;
+}
+
+.sort_group{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sort_group p{
+    margin-top: 1rem !important;
+    inline-size: 8rem;
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DeleteButton from './buttons/DeleteButton';
-import LikeIcon from './buttons/LikeIcon';
-import DislikeIcon from './buttons/DislikeIcon';
+import LikeIcon from './buttons/LikeButton';
+import DislikeIcon from './buttons/DisLikeButton';
 import YouTubeEmbed from './YouTubeEmbed';
 import './Video.css';
 

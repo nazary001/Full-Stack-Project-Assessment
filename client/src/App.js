@@ -1,13 +1,19 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import Video from "./Video";
-import dataVideos from "./exampleresponse.json";
 import AddVideoButton from "./buttons/AddVideoButton";
 import { v4 as uuidv4 } from 'uuid';
+import SortSelector from "./SortSelector";
 
 function App() {
 
-  const [videos, setVideos] = useState(dataVideos);
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/')
+    .then(res => res.json())
+    .then(data => setVideos(data))
+  }, []);
 
   const addRating = () => {
     return Math.round(Math.random() * 1000);
@@ -22,9 +28,10 @@ function App() {
     setVideos(prevState => prevState.filter(video => video.id !== id));
   }
 
-  function sortByRating(){
-    const sortedVideos = [...videos].sort((a, b) => b.rating - a.rating);
-    return sortedVideos;
+  const handleSortChange = (sortMethod) => {
+    fetch(`http://localhost:5000/?order=${sortMethod}`)
+      .then(res => res.json())
+      .then(data => setVideos(data));
   }
 
   return (
@@ -32,10 +39,13 @@ function App() {
       <header className="App-header">
         <h1>Video Recommendation</h1>
       </header>
-      <AddVideoButton onFormSubmit={addVideo}/>
+      <div className="sort_and_addbtn_div">
+        <AddVideoButton onFormSubmit={addVideo}/>
+        <SortSelector onChange={handleSortChange}/>
+      </div>
       <div className="main">
-        {sortByRating().map((video, key) => (
-          <Video video={video} key={key} deleteVideo={deleteVideo}/>
+        {videos.map((video, key) => (
+          <Video video={video} key={video.id} deleteVideo={deleteVideo}/>
         ))}
       </div>
     </div>

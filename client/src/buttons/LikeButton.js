@@ -1,6 +1,6 @@
 import React from 'react'
 
-function LikeIcon({vote}) {
+function LikeButton({vote}) {
   return (
     <button onClick={vote}>
       <img style = {{width: '1.8rem'}} src ='https://cdn-icons-png.flaticon.com/512/739/739231.png' alt ='like'/>
@@ -8,4 +8,4 @@ function LikeIcon({vote}) {
   );
 }
 
-export default LikeIcon
+export default LikeButton;
