@@ -15,17 +15,20 @@ function App() {
     .then(data => setVideos(data))
   }, []);
 
-  const addRating = () => {
-    return Math.round(Math.random() * 1000);
-  }
-
   const addVideo = (data) => {
-    const newVideo = { ...data, id: uuidv4(), rating: addRating()};
+    const newVideo = { ...data};
     setVideos(prevState => [...prevState, newVideo]);
   }
 
   const deleteVideo = (id) => {
-    setVideos(prevState => prevState.filter(video => video.id !== id));
+    fetch(`http://localhost:5000/${id}`, {
+            method: "DELETE",
+            mode: 'cors',
+        })
+        .then(response => response.json())
+        .then(data => {
+          setVideos(prevState => prevState.filter(video => video.id !== data[0].id));
+        });
   }
 
   const handleSortChange = (sortMethod) => {

@@ -34,9 +34,14 @@ function AddVideoButton({onFormSubmit}) {
             alert('Invalid URL');
             return;
         }
-        const date = new Date().toLocaleDateString("fr-CA");
-        videoData.date = date;
-        onFormSubmit(videoData);
+        fetch('http://localhost:5000/', {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            mode: 'cors',
+            body: JSON.stringify(videoData)
+        })
+        .then(response => response.json())
+        .then(data => {onFormSubmit(data)});
         closeModal();
     }
 
