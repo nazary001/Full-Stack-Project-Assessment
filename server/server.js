@@ -1,56 +1,56 @@
-const videosInitialData = require('./data/exampleresponse.json');
 const { v4: uuidv4 } = require('uuid');
 const cors = require('cors');
-
 const express = require('express');
+const {Pool} = require('pg');
+
 const app = express();
 app.use(cors());
+app.use(express.json());
+
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
-
-const videos = [...videosInitialData];
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'videos',
+  port: 5432
+})
 
 app.get('/', (req, res) => {
-  if(req.query.order === 'asc'){
-    videos.sort((a, b) => a.rating - b.rating);
-    res.status(200).send(videos);
-  }
-  else{
-    videos.sort((a, b) => b.rating - a.rating);
-    res.status(200).send(videos);
-  }   
-});
-
-app.post('/', (req, res) => {
-  const video = {...req.headers};
-  Object.assign(video, {
-    id: uuidv4()
+  pool.query('SELECT * FROM videosdata')
+  .then(result => {
+    const videos = result.rows;
+    if(req.query.order === 'asc'){
+      videos.sort((a, b) => a.rating - b.rating);
+      res.status(200).send(videos);
+    }
+    else{
+      videos.sort((a, b) => b.rating - a.rating);
+      res.status(200).send(videos);
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    res.status(500).json(error);
   });
-  res.status(200).json(video)
 });
 
-app.get('/:id', (req, res) => {
-  const requestedVideo = videos.find(video => video.id === +req.params.id);
-  if(!requestedVideo){
-    res.status(404).send('Could not find video with this ID');
-    return;
-  };
-  res.status(200).send(requestedVideo);
+app.post('/', async (req, res) => {
+  const video = {...req.body};
+  Object.assign(video, {
+    id: uuidv4(),
+    rating: Math.round(Math.random() * 1000)
+  });
+  await pool.query('INSERT INTO videosdata values($1, $2, $3, $4)', [video.id, video.title, video.url, video.rating])
+  res.status(200).send(video);
 });
 
-app.delete('/:id', (req, res) => {
-  const videoIdx = videos.findIndex(video => video.id === +req.params.id);
-  videos.splice(videoIdx, 1);
-  res.status(200).send(videos);
+app.delete('/:id', async (req, res) => {
+  await pool.query('DELETE FROM videosdata where id like ($1) RETURNING *', [req.params.id])
+  .then(result => {
+    const deletedVideo = result.rows;
+    res.status(200).send(deletedVideo);
+  })
 });
 
-app.get('/', (req, res) => {
-  console.log(req.query)
-  res.status(200)
-})
-
-app.get('/?order=desc', (req, res) => {
-  const sortedVideos = videos.sort((a, b) => b.rating - a.rating)
-  res.status(200).send(sortedVideos);
-})
+app.listen(port, () => console.log(`Listening on port ${port}`));
