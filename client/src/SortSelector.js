@@ -1,10 +1,15 @@
 import * as React from 'react';
 import Form from 'react-bootstrap/Form';
+import { useDispatch } from 'react-redux';
+import { sortVideosThunk } from './redux/operations/videosThunk';
 
 function SortSelector({onChange}) {
 
+    const dispatch = useDispatch();
+
     const handleSortChange = (event) => {
-        onChange(event.target.value.substr(0, 3));
+       const sortMethod = event.target.value.substr(0, 3);
+       dispatch(sortVideosThunk(sortMethod));
     };
 
   return (

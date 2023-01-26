@@ -4,11 +4,13 @@ import {Modal, CloseButton} from 'react-bootstrap';
 import './AddVideoButton.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { addVideo } from '../services/API';
+import { useDispatch } from 'react-redux';
+import { addVideosThunk } from '../redux/operations/videosThunk';
 
-function AddVideoButton({onFormSubmit}) {
+function AddVideoButton() {
     const [showModal, setShowModal] = useState(false);
     const [videoData, setVideoData] = useState({});
+    const dispatch = useDispatch();
     
     const openModal = () => {
         setShowModal(true);
@@ -36,8 +38,7 @@ function AddVideoButton({onFormSubmit}) {
             return;
         }
 
-        addVideo(videoData)
-        .then(data => onFormSubmit(data));
+        dispatch(addVideosThunk(videoData))
         closeModal();
     }
 

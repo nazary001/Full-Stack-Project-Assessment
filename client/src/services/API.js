@@ -18,3 +18,8 @@ export const deleteVideo = async (id) => {
     const {data} = await videosAPI.delete(id);
     return data;
 };
+
+export const sortVideos = async (sortMethod) => {
+    const data = await axios.get('http://localhost:5000/', {params: {order: sortMethod}});
+    return data.data;
+}
