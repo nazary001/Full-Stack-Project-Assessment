@@ -2,39 +2,34 @@ import React, {useEffect, useState} from "react";
 import "./App.css";
 import Video from "./Video";
 import AddVideoButton from "./buttons/AddVideoButton";
-import { v4 as uuidv4 } from 'uuid';
 import SortSelector from "./SortSelector";
+import { deleteVideo, getVideos } from "./services/API";
+import axios from "axios";
 
 function App() {
 
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/')
-    .then(res => res.json())
+    getVideos()
     .then(data => setVideos(data))
   }, []);
 
   const addVideo = (data) => {
     const newVideo = { ...data};
     setVideos(prevState => [...prevState, newVideo]);
-  }
+  };
 
-  const deleteVideo = (id) => {
-    fetch(`http://localhost:5000/${id}`, {
-            method: "DELETE",
-            mode: 'cors',
-        })
-        .then(response => response.json())
-        .then(data => {
-          setVideos(prevState => prevState.filter(video => video.id !== data[0].id));
-        });
+  const deleteVideoFunc = (id) => {
+    deleteVideo(id)
+    .then(data => {
+      setVideos(prevState => prevState.filter(video => video.id !== data[0].id));
+    });
   }
 
   const handleSortChange = (sortMethod) => {
-    fetch(`http://localhost:5000/?order=${sortMethod}`)
-      .then(res => res.json())
-      .then(data => setVideos(data));
+    axios.get('http://localhost:5000/', {params: {order: sortMethod}})
+    .then(data => setVideos(data.data))
   }
 
   return (
@@ -48,7 +43,7 @@ function App() {
       </div>
       <div className="main">
         {videos.map((video, key) => (
-          <Video video={video} key={video.id} deleteVideo={deleteVideo}/>
+          <Video video={video} key={video.id} deleteVideo={deleteVideoFunc}/>
         ))}
       </div>
     </div>

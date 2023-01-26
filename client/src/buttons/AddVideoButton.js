@@ -4,6 +4,7 @@ import {Modal, CloseButton} from 'react-bootstrap';
 import './AddVideoButton.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { addVideo } from '../services/API';
 
 function AddVideoButton({onFormSubmit}) {
     const [showModal, setShowModal] = useState(false);
@@ -34,14 +35,9 @@ function AddVideoButton({onFormSubmit}) {
             alert('Invalid URL');
             return;
         }
-        fetch('http://localhost:5000/', {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            mode: 'cors',
-            body: JSON.stringify(videoData)
-        })
-        .then(response => response.json())
-        .then(data => {onFormSubmit(data)});
+
+        addVideo(videoData)
+        .then(data => onFormSubmit(data));
         closeModal();
     }
 
